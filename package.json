@@ -1,0 +1,14 @@
+{
+  "name": "better-message",
+  "version": "1.0.0",
+  "description": "Simple messaging app created for Better's front end challenge.",
+  "main": "index.js",
+  "scripts": {
+    "serveApi": "node api/server.js"
+  },
+  "author": "Sam Whitley",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
