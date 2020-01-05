@@ -1,6 +1,8 @@
 // Add our dependencies
-const gulp = require('gulp'), // Main Gulp module
-      connect = require('gulp-connect'); // Gulp Web server runner plugin
+const gulp = require('gulp'),
+      connect = require('gulp-connect'),
+      fetch = require('isomorphic-fetch'),
+      replace = require('gulp-string-replace');
 
 const config = {
   paths: {
@@ -12,18 +14,25 @@ const config = {
   localServer: {
     port: 9001,
     url: 'http://localhost:9001/'
+  },
+  apiServer: {
+    url: 'http://localhost:9000/'
   }
 };
 
-// Gulp task to copy HTML files to output directory
-gulp.task('html', () => {
-  return gulp.src(config.paths.src.html)
-    .pipe(gulp.dest(config.paths.dist))
-    .pipe(connect.reload());
+// Build home page from API data
+gulp.task('buildFromApi', () => {
+  return fetch(config.apiServer.url)
+  .then(apiData => apiData.text())
+  .then(apiData => {
+    return gulp.src(config.paths.src.html)
+      .pipe(replace('<div class="messages"></div>', `<div class="messages"><p>${apiData}</p></div>`))
+      .pipe(gulp.dest(config.paths.dist));
+  });
 });
 
-// Gulp task to create a web server
-gulp.task('connect', () => {
+// Create a web server
+gulp.task('startServer', () => {
   connect.server({
     root: 'client/dist',
     port: config.localServer.port,
@@ -31,11 +40,4 @@ gulp.task('connect', () => {
   });
 });
 
-// Watch the file system and reload the website automatically
-gulp.task('watch', () => {
-  gulp.watch(config.paths.src.html, gulp.series('html'));
-});
-
-// Gulp default task
-gulp.task('start', gulp.series('html', 'connect'));
-gulp.task('default', gulp.parallel('start', 'watch'));
+gulp.task('default', gulp.series('buildFromApi', 'startServer'));
