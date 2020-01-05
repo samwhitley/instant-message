@@ -20,13 +20,26 @@ const config = {
   }
 };
 
+const buildMessages = data => {
+  let list = '<ul class="messages">';
+
+  for (let i = 0; i < data.posts.length; i++) {
+    list += `<li>${data.posts[i].message}</li>`;
+  }
+
+  list += '</ul>';
+  return list;
+};
+
 // Build home page from API data
 gulp.task('buildFromApi', () => {
   return fetch(config.apiServer.url)
-  .then(apiData => apiData.text())
+  .then(apiData => apiData.json())
   .then(apiData => {
+    const messages = buildMessages(apiData);
+
     return gulp.src(config.paths.src.html)
-      .pipe(replace('<div class="messages"></div>', `<div class="messages"><p>${apiData}</p></div>`))
+      .pipe(replace('<ul class="messages"></ul>', messages))
       .pipe(gulp.dest(config.paths.dist));
   });
 });

@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
   const rawData = fs.readFileSync(dataPath);
   const data = JSON.parse(rawData);
 
-  res.send(JSON.stringify(data));
+  res.send(data);
 });
 
 app.listen(PORT, () => {
