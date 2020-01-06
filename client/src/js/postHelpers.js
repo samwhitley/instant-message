@@ -19,9 +19,11 @@ const getUsers = data => {
 const makePost = (post, user) => {
   const timeSince = `${timeHelpers.timeSince(post.ts)} ago`;
   const userHeading = `${user.real_name} - @${user.username}`;
+  const userImg = `<img src='images/${user.username}.jpg' alt='${user.real_name}' />`;
 
   return `
   <li>
+    <p>${userImg}</p>
     <p>${userHeading}</p>
     <p>${timeSince}</p>
     <p>${post.message}</p>

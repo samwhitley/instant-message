@@ -39,6 +39,12 @@ gulp.task('buildFromApi', () => {
   });
 });
 
+// Copy images to dist
+gulp.task('images', () => {
+  return gulp.src(`${config.paths.src}/images/**`)
+    .pipe(gulp.dest(`${config.paths.dist}/images`));
+});
+
 gulp.task('browserify', () => {
   return browserify({
     entries: `${config.paths.src}/js/index.js`,
@@ -58,4 +64,4 @@ gulp.task('startServer', () => {
   });
 });
 
-gulp.task('default', gulp.series('clean', 'buildFromApi', 'browserify', 'startServer'));
+gulp.task('default', gulp.series('clean', 'buildFromApi', 'browserify', 'images', 'startServer'));
