@@ -1,11 +1,37 @@
 const postHelpers = require('./postHelpers');
 
-let dummyPost = {
-  "id": 2374237842,
-  "user": 1,
-  "message": "Take this! My love, my anger, and all of my sorrow!",
-  "ts": 1337774582
+const myUser = {
+  "id": 4,
+  "username": "baratunde",
+  "real_name": "Baratunde",
+  "verified": false
 };
 
-console.log('index with posts!');
-console.log(postHelpers.makePost(dummyPost));
+const $postEntry = document.querySelector('.postEntry'),
+      $postSubmit = document.querySelector('.postSubmit'),
+      $postList = document.querySelector('.posts');
+
+const handleSubmit = e => {
+  let entry = $postEntry.value;
+
+  if (entry === '') {
+    alert('Post cannot be empty!');
+  }
+  else {
+    let post = postHelpers.makePost({
+      id: 12345,
+      message: entry,
+      user: myUser.id,
+      ts: 1337968739
+    }, myUser);
+
+    let tempPost = document.createElement("li");
+    tempPost.innerHTML = post.trim();
+    let postHtml = tempPost.firstChild;
+
+    $postList.appendChild(postHtml);
+    $postEntry.value = '';
+  }
+};
+
+$postSubmit.addEventListener('click', handleSubmit);

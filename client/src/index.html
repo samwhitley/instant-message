@@ -5,16 +5,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Better Messages</title>
+  <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
   <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+    }
+
     img {
       width: 50px;
       height: 50px;
     }
+
+    .postEntry {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      line-height: 24px;
+      box-sizing: border-box;
+      border: 1px solid gray;
+    }
+
+    .postSubmit {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      line-height: 24px;
+      box-sizing: border-box;
+      background: fuchsia;
+      color: #ffffff;
+      border: none;
+      cursor: pointer;
+    }
+
+    main {
+      padding: 20px;
+    }
   </style>
 </head>
 <body>
-  <h1>Better Messages</h1>
-  <ul class="posts"></ul>
+  <main>
+    <h1>Better Messages</h1>
+    <ul class="posts"></ul>
+    <input class="postEntry" type="text">
+    <button class="postSubmit">Submit</button>
+  </main>
   <script src="js/index.js"></script>
 </body>
 </html>

@@ -32,7 +32,7 @@ const makePost = (post, user) => {
 
 const makeList = data => {
   const users = getUsers(data);
-  let list = '<ul class="messages">';
+  let list = '<ul class="posts">';
 
   for (let i = 0; i < data.posts.length; i++) {
     let post = data.posts[i];
