@@ -3,7 +3,7 @@ const gulp = require('gulp'),
       connect = require('gulp-connect'),
       fetch = require('isomorphic-fetch'),
       replace = require('gulp-string-replace'),
-      messages = require('./src/js/messages'),
+      postHelpers = require('./src/js/postHelpers'),
       browserify = require('browserify'),
       source = require('vinyl-source-stream'),
       del = require('del');
@@ -31,10 +31,10 @@ gulp.task('buildFromApi', () => {
   return fetch(config.apiServer.url)
   .then(apiData => apiData.json())
   .then(apiData => {
-    const messageList = messages.makeList(apiData);
+    const postList = postHelpers.makeList(apiData);
 
     return gulp.src(`${config.paths.src}/*.html`)
-      .pipe(replace('<ul class="messages"></ul>', messageList))
+      .pipe(replace('<ul class="posts"></ul>', postList))
       .pipe(gulp.dest(config.paths.dist));
   });
 });

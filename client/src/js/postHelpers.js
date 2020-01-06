@@ -1,5 +1,13 @@
+const timeHelpers = require('./timeHelpers');
+
 const makePost = post => {
-  return `<li>${post.message}</li>`;
+  const timeSince = `${timeHelpers.timeSince(post.ts)} ago`;
+
+  return `
+  <li>
+    <p>${timeSince}</p>
+    <p>${post.message}</p>
+  </li>`;
 };
 
 const makeList = data => {

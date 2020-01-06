@@ -1,4 +1,4 @@
-const messages = require('./messages');
+const postHelpers = require('./postHelpers');
 
 let dummyPost = {
   "id": 2374237842,
@@ -7,5 +7,5 @@ let dummyPost = {
   "ts": 1337774582
 };
 
-console.log('index with messages!');
-console.log(messages.makePost(dummyPost));
+console.log('index with posts!');
+console.log(postHelpers.makePost(dummyPost));
