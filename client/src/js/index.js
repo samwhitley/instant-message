@@ -42,8 +42,15 @@ const handleSubmit = e => {
   
       $postList.appendChild(postDOM);
       $postEntry.value = '';
+      $postEntry.focus();
+      window.scrollTo(0,document.body.scrollHeight);
     });
   }
 };
 
+$postEntry.addEventListener("keyup", e => {
+  if (e.key === "Enter") {
+    handleSubmit();
+  }
+});
 $postSubmit.addEventListener('click', handleSubmit);
