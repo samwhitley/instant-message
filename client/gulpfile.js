@@ -1,4 +1,3 @@
-// Add our dependencies
 const gulp = require('gulp'),
       connect = require('gulp-connect'),
       fetch = require('isomorphic-fetch'),
@@ -22,6 +21,7 @@ const config = {
   }
 };
 
+// Delete dist directory
 gulp.task('clean', () => {
   return del(config.paths.dist, {force: true});
 });
@@ -34,17 +34,25 @@ gulp.task('buildFromApi', () => {
     const postList = postHelpers.makeList(apiData);
 
     return gulp.src(`${config.paths.src}/*.html`)
-      .pipe(replace('<ul class="posts"></ul>', postList))
-      .pipe(gulp.dest(config.paths.dist));
+    .pipe(replace('<ul class="posts"></ul>', postList))
+    .pipe(gulp.dest(config.paths.dist));
   });
 });
 
 // Copy images to dist
 gulp.task('images', () => {
   return gulp.src(`${config.paths.src}/images/**`)
-    .pipe(gulp.dest(`${config.paths.dist}/images`));
+  .pipe(gulp.dest(`${config.paths.dist}/images`));
 });
 
+// Copy css to dist
+gulp.task('css', () => {
+  return gulp.src(`${config.paths.src}/css/**`)
+  .pipe(gulp.dest(`${config.paths.dist}/css`))
+  .pipe(connect.reload());
+});
+
+// Create JS bundle for client side use
 gulp.task('browserify', () => {
   return browserify({
     entries: `${config.paths.src}/js/index.js`,
@@ -52,7 +60,19 @@ gulp.task('browserify', () => {
   })
   .bundle()
   .pipe(source('index.js'))
-  .pipe(gulp.dest(`${config.paths.dist}/js`));
+  .pipe(gulp.dest(`${config.paths.dist}/js`))
+  .pipe(connect.reload());
+});
+
+gulp.task('watch', () => {
+  gulp.watch(
+    `${config.paths.src}/js`,
+    gulp.series('buildFromApi', 'browserify')
+  );
+  gulp.watch(
+    `${config.paths.src}/css`,
+    gulp.series('css')
+  );
 });
 
 // Create a web server
@@ -64,4 +84,5 @@ gulp.task('startServer', () => {
   });
 });
 
-gulp.task('default', gulp.series('clean', 'buildFromApi', 'browserify', 'images', 'startServer'));
+gulp.task('start', gulp.series('clean', 'buildFromApi', 'browserify', 'css', 'images', 'startServer'));
+gulp.task('default', gulp.parallel('start', 'watch'));
