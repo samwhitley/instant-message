@@ -24,10 +24,10 @@ const makePost = (post, user) => {
 
   if (user.username && user.real_name) {
     userHeading = `<span class='userHeading'>${user.real_name} - @${user.username}</span>`;
-    userImg = `<div class='imgWrap'><img src='images/${user.username}.jpg' alt='${user.real_name}' /></div>`;
+    userImg = `<div class='imgWrap'><img src='images/users/${user.username}.jpg' alt='${user.real_name}' /></div>`;
   }
   else {
-    userImg = `<div class='imgWrap anon'><img src='images/better-icon.svg' alt='anonymous user' /></div>`;
+    userImg = `<div class='imgWrap anon'><img src='images/icons/better-icon.svg' alt='anonymous user' /></div>`;
   }
 
   return `

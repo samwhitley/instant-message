@@ -28,11 +28,6 @@ main {
   margin-bottom: 10px;
 }
 
-img {
-  width: 50px;
-  height: 50px;
-}
-
 .imgWrap {
   width: 50px;
   height: 50px;
@@ -43,6 +38,11 @@ img {
   align-items: center;
   margin-right: 10px;
   flex-shrink: 0;
+}
+
+.imgWrap img {
+  width: 50px;
+  height: 50px;
 }
 
 .imgWrap.anon {
@@ -98,23 +98,41 @@ img {
 
 /* POST ENTRY CONTROLS */
 
+.controls {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+  background: #ffffff;
+  border-top: 1px solid #00c397;
+}
+
+.controls input:focus, .controls button:focus {
+  outline: none;
+}
+
 .postEntry {
   width: 100%;
-  padding: 10px;
+  padding: 20px;
   font-size: 16px;
   line-height: 24px;
   box-sizing: border-box;
-  border: 1px solid gray;
+  border: none;
+  flex-grow: 1;
 }
 
 .postSubmit {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  line-height: 24px;
+  padding: 20px;
   box-sizing: border-box;
-  background: fuchsia;
+  background: none;
   color: #ffffff;
   border: none;
   cursor: pointer;
+  flex-shrink: 0;
+}
+
+.postSubmit img {
+  opacity: 0.25;
 }
