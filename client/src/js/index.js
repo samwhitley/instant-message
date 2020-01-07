@@ -12,7 +12,7 @@ const $postEntry = document.querySelector('.postEntry'),
       $postList = document.querySelector('.posts');
 
 const handleSubmit = e => {
-  let entry = $postEntry.value;
+  let entry = $postEntry.value.trim();
 
   if (entry === '') {
     alert('Post cannot be empty!');
@@ -54,3 +54,5 @@ $postEntry.addEventListener("keyup", e => {
   }
 });
 $postSubmit.addEventListener('click', handleSubmit);
+
+$postEntry.focus();
