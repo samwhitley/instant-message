@@ -17,16 +17,30 @@ const getUsers = data => {
 };
 
 const makePost = (post, user) => {
-  const timeSince = `${timeHelpers.timeSince(post.ts)} ago`;
-  const userHeading = `${user.real_name} - @${user.username}`;
-  const userImg = `<img src='images/${user.username}.jpg' alt='${user.real_name}' />`;
+  const clientClass = user.client ? `class='client'` : '';
+  const timeSince = `<span class='timeHeading'>${timeHelpers.timeSince(post.ts)}</span>`;
+  let userHeading = ``;
+  let userImg = ``;
+
+  if (user.username && user.real_name) {
+    userHeading = `<span class='userHeading'>${user.real_name} - @${user.username}</span>`;
+    userImg = `<div class='imgWrap'><img src='images/${user.username}.jpg' alt='${user.real_name}' /></div>`;
+  }
+  else {
+    userImg = `<div class='imgWrap anon'><img src='images/better-icon.svg' alt='anonymous user' /></div>`;
+  }
 
   return `
-  <li>
-    <p>${userImg}</p>
-    <p>${userHeading}</p>
-    <p>${timeSince}</p>
-    <p>${post.message}</p>
+  <li ${clientClass}>
+    ${userImg}
+    <div class='messageWrap'>
+      <div class='postMeta'>
+        ${userHeading} ${timeSince}
+      </div>
+      <div class='postContent'>
+        <p>${post.message}</p>
+      </div>
+    </div>
   </li>`;
 };
 

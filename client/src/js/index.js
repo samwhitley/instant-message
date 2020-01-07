@@ -2,8 +2,7 @@ const postHelpers = require('./postHelpers');
 
 const myUser = {
   "id": 4,
-  "username": "baratunde",
-  "real_name": "Baratunde",
+  "client": true,
   "verified": false
 };
 
@@ -22,7 +21,7 @@ const handleSubmit = e => {
       id: 12345,
       message: entry,
       user: myUser.id,
-      ts: 1337968739
+      ts: Math.round((new Date()).getTime() / 1000)
     }, myUser);
 
     let tempPost = document.createElement("li");

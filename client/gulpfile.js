@@ -2,7 +2,6 @@ const gulp = require('gulp'),
       connect = require('gulp-connect'),
       fetch = require('isomorphic-fetch'),
       replace = require('gulp-string-replace'),
-      postHelpers = require('./src/js/postHelpers'),
       browserify = require('browserify'),
       source = require('vinyl-source-stream'),
       del = require('del');
@@ -28,14 +27,16 @@ gulp.task('clean', () => {
 
 // Build home page from API data
 gulp.task('buildFromApi', () => {
+  let postHelpers = require('./src/js/postHelpers');
+
   return fetch(config.apiServer.url)
   .then(apiData => apiData.json())
   .then(apiData => {
-    const postList = postHelpers.makeList(apiData);
+    let postList = postHelpers.makeList(apiData);
 
     return gulp.src(`${config.paths.src}/*.html`)
     .pipe(replace('<ul class="posts"></ul>', postList))
-    .pipe(gulp.dest(config.paths.dist));
+    .pipe(gulp.dest(config.paths.dist, { overwrite: true }));
   });
 });
 
@@ -48,7 +49,7 @@ gulp.task('images', () => {
 // Copy css to dist
 gulp.task('css', () => {
   return gulp.src(`${config.paths.src}/css/**`)
-  .pipe(gulp.dest(`${config.paths.dist}/css`))
+  .pipe(gulp.dest(`${config.paths.dist}/css`, { overwrite: true }))
   .pipe(connect.reload());
 });
 
@@ -60,7 +61,7 @@ gulp.task('browserify', () => {
   })
   .bundle()
   .pipe(source('index.js'))
-  .pipe(gulp.dest(`${config.paths.dist}/js`))
+  .pipe(gulp.dest(`${config.paths.dist}/js`, { overwrite: true }))
   .pipe(connect.reload());
 });
 
