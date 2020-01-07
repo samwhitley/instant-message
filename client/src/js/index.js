@@ -1,4 +1,5 @@
-const postHelpers = require('./postHelpers');
+const postHelpers = require('./postHelpers'),
+      config = require('./config');
 
 const myUser = {
   "id": 4,
@@ -17,19 +18,31 @@ const handleSubmit = e => {
     alert('Post cannot be empty!');
   }
   else {
-    let post = postHelpers.makePost({
+    let post = {
       id: 12345,
       message: entry,
       user: myUser.id,
       ts: Math.round((new Date()).getTime() / 1000)
-    }, myUser);
+    };
 
-    let tempPost = document.createElement("li");
-    tempPost.innerHTML = post.trim();
-    let postHtml = tempPost.firstChild;
+    fetch(config.apiServer.url, {
+      method: 'POST',
+      headers: {'content-type': 'application/json'},
+      body: JSON.stringify(post)
+    })
+    .then(res => res.json())
+    .then(res => {
+      console.log(`posted to api and got response:`);
+      console.log(res);
 
-    $postList.appendChild(postHtml);
-    $postEntry.value = '';
+      let postHtml = postHelpers.makePost(post, myUser);
+      let tempPost = document.createElement("li");
+      tempPost.innerHTML = postHtml.trim();
+      let postDOM = tempPost.firstChild;
+  
+      $postList.appendChild(postDOM);
+      $postEntry.value = '';
+    });
   }
 };
 

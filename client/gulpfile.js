@@ -4,21 +4,8 @@ const gulp = require('gulp'),
       replace = require('gulp-string-replace'),
       browserify = require('browserify'),
       source = require('vinyl-source-stream'),
-      del = require('del');
-
-const config = {
-  paths: {
-    src: './src',
-    dist: './dist'
-  },
-  localServer: {
-    port: 9001,
-    url: 'http://localhost:9001/'
-  },
-  apiServer: {
-    url: 'http://localhost:9000/'
-  }
-};
+      del = require('del'),
+      config = require('./src/js/config');
 
 // Delete dist directory
 gulp.task('clean', () => {
