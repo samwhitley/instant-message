@@ -22,5 +22,8 @@
     "isomorphic-fetch": "^2.2.1",
     "npm-run-all": "^4.1.5",
     "vinyl-source-stream": "^2.0.0"
+  },
+  "engines": {
+    "node": "9.6.1"
   }
 }
