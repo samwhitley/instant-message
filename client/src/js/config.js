@@ -1,14 +1,14 @@
 const config = {
   paths: {
-    src: './src',
-    dist: './dist'
+    src: "./src",
+    dist: "./dist"
   },
   localServer: {
-    port: 9001,
-    url: 'http://localhost:9001/'
+    port: 8001,
+    url: "http://localhost:8001/"
   },
   apiServer: {
-    url: 'http://localhost:9000/'
+    url: "http://localhost:8000/"
   }
 };
 

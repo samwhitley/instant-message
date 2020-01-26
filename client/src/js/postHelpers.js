@@ -1,4 +1,4 @@
-const timeHelpers = require('./timeHelpers');
+const timeHelpers = require("./timeHelpers");
 
 const getUsers = data => {
   let users = {};
@@ -7,27 +7,28 @@ const getUsers = data => {
     let user = data.users[i];
 
     users[user.id] = {
-      "username": user.username,
-      "real_name": user.real_name,
-      "verified": user.verified
-    }
+      username: user.username,
+      real_name: user.real_name,
+      verified: user.verified
+    };
   }
 
   return users;
 };
 
 const makePost = (post, user) => {
-  const clientClass = user.client ? `class='client'` : '';
-  const timeSince = `<span class='timeHeading'>${timeHelpers.timeSince(post.ts)}</span>`;
+  const clientClass = user.client ? `class='client'` : "";
+  const timeSince = `<span class='timeHeading'>${timeHelpers.timeSince(
+    post.ts
+  )}</span>`;
   let userHeading = ``;
   let userImg = ``;
 
   if (user.username && user.real_name) {
     userHeading = `<span class='userHeading'>${user.real_name} - @${user.username}</span>`;
     userImg = `<div class='imgWrap'><img src='images/users/${user.username}.jpg' alt='${user.real_name}' /></div>`;
-  }
-  else {
-    userImg = `<div class='imgWrap anon'><img src='images/icons/better-icon.svg' alt='anonymous user' /></div>`;
+  } else {
+    userImg = `<div class='imgWrap anon'><img src='images/icons/account_circle-24px.svg' alt='anonymous user' /></div>`;
   }
 
   return `
@@ -53,7 +54,7 @@ const makeList = data => {
     list += makePost(post, users[post.user]);
   }
 
-  list += '</ul>';
+  list += "</ul>";
   return list;
 };
 

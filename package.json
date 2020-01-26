@@ -1,7 +1,7 @@
 {
-  "name": "better-message",
+  "name": "instant-message",
   "version": "1.0.0",
-  "description": "Simple messaging app created for Better's front end challenge.",
+  "description": "Simple messaging app that gets and posts data to an API endpoint.",
   "main": "index.js",
   "scripts": {
     "serveApi": "node api/server.js",

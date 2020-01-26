@@ -1,25 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="author" content="Sam Whitley">
-  <meta name="description" content="Simple messaging app created for Better's front end challenge.">
-  <title>Better Messages</title>
-  <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="css/main.css">
-</head>
-<body>
-  <main>
-    <section class="list">
-      <ul class="posts"></ul>
-    </section>
-    <section class="controls">
-      <input class="postEntry" type="text" placeholder="what's happening?" maxlength="140">
-      <button class="postSubmit"><img src='images/icons/send-24px.svg' /></button>
-    </section>
-  </main>
-  <script src="js/index.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="author" content="Sam Whitley" />
+    <meta
+      name="description"
+      content="Simple messaging app that gets and posts data to an API endpoint."
+    />
+    <title>Instant Message App</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body>
+    <main>
+      <section class="list">
+        <ul class="posts"></ul>
+      </section>
+      <section class="controls">
+        <input
+          class="postEntry"
+          type="text"
+          placeholder="what's happening?"
+          maxlength="140"
+        />
+        <button class="postSubmit">
+          <img src="images/icons/send-24px.svg" />
+        </button>
+      </section>
+    </main>
+    <script src="js/index.js"></script>
+  </body>
 </html>
