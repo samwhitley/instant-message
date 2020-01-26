@@ -31,4 +31,4 @@ const timeSince = timeStamp => {
 
 module.exports = {
   timeSince
-}
+};
