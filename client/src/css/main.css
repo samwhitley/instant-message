@@ -96,7 +96,7 @@ main {
 }
 
 .client .messageWrap p {
-  background: #00c397;
+  background: #5f90de;
   color: #ffffff;
 }
 
@@ -110,7 +110,7 @@ main {
   display: flex;
   flex-direction: row;
   background: #ffffff;
-  border-top: 1px solid #00c397;
+  border-top: 1px solid #5f90de;
 }
 
 .controls input:focus,
@@ -194,6 +194,10 @@ main {
 }
 
 @media (max-width: 900px) {
+  main {
+    padding-bottom: 100px;
+  }
+
   .messageWrap {
     padding-right: 0;
   }

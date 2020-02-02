@@ -2,10 +2,14 @@ const gulp = require("gulp"),
   connect = require("gulp-connect"),
   fetch = require("isomorphic-fetch"),
   replace = require("gulp-string-replace"),
+  cleanCSS = require("gulp-clean-css"),
+  imageMin = require("gulp-imagemin"),
   browserify = require("browserify"),
+  buffer = require("vinyl-buffer"),
   source = require("vinyl-source-stream"),
   del = require("del"),
-  config = require("./src/js/config");
+  config = require("./src/js/config"),
+  uglifyES = require("gulp-uglify-es").default;
 
 // Delete dist directory
 gulp.task("clean", () => {
@@ -32,6 +36,7 @@ gulp.task("buildFromApi", () => {
 gulp.task("images", () => {
   return gulp
     .src(`${config.paths.src}/images/**`)
+    .pipe(imageMin())
     .pipe(gulp.dest(`${config.paths.dist}/images`));
 });
 
@@ -39,6 +44,7 @@ gulp.task("images", () => {
 gulp.task("css", () => {
   return gulp
     .src(`${config.paths.src}/css/**`)
+    .pipe(cleanCSS())
     .pipe(gulp.dest(`${config.paths.dist}/css`, { overwrite: true }))
     .pipe(connect.reload());
 });
@@ -51,6 +57,8 @@ gulp.task("browserify", () => {
   })
     .bundle()
     .pipe(source("index.js"))
+    .pipe(buffer())
+    .pipe(uglifyES())
     .pipe(gulp.dest(`${config.paths.dist}/js`, { overwrite: true }))
     .pipe(connect.reload());
 });
@@ -65,7 +73,7 @@ gulp.task("watch", () => {
 
 // Create a web server
 gulp.task("startServer", () => {
-  connect.server({
+  return connect.server({
     root: config.paths.dist,
     port: config.localServer.port,
     livereload: true
@@ -83,4 +91,4 @@ gulp.task(
     "startServer"
   )
 );
-gulp.task("default", gulp.parallel("start", "watch"));
+gulp.task("default", gulp.parallel("start"));
